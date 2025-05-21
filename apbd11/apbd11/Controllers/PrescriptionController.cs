@@ -1,4 +1,5 @@
-﻿using apbd11.Models;
+﻿using apbd11.DTOs;
+using apbd11.Models;
 using apbd11.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,17 +24,16 @@ public class PrescriptionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddPrescription(Prescription prescription)
+    public async Task<ActionResult> AddPrescription(PrescriptionRequestDto prescription)
     {
         try
         {
             await _dbService.AddNewPrescription(prescription);
-            return Ok();
+            return Ok("prescription added");
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            return BadRequest(e.Message);
         }
     }
     

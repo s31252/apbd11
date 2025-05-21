@@ -23,28 +23,6 @@ public class DatabaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<PrescriptionMedicament>()
-            .HasKey(pm => new { pm.IdMedicament, pm.IdPrescription });
-
-        modelBuilder.Entity<PrescriptionMedicament>()
-            .HasOne<Prescription>()
-            .WithMany(p => p.PrescriptionMedicaments)
-            .HasForeignKey(pm => pm.IdPrescription);
-
-        modelBuilder.Entity<PrescriptionMedicament>()
-            .HasOne<Medicament>()
-            .WithMany()
-            .HasForeignKey(pm => pm.IdMedicament);
-        
-        modelBuilder.Entity<Prescription>()
-            .HasOne(p => p.Patient)
-            .WithMany()
-            .HasForeignKey(p => p.IdPatient);
-        
-        modelBuilder.Entity<Prescription>()
-            .HasOne(p => p.Doctor)
-            .WithMany()
-            .HasForeignKey(p => p.IdDoctor);
         
         modelBuilder.Entity<Doctor>().HasData(new List<Doctor>
         {
@@ -54,13 +32,14 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Patient>().HasData(new List<Patient>
         {
-            new Patient { IdPatient = 1, FirstName = "Jan", LastName = "Kowalski", BirthDate = DateTime.Now },
-            new Patient { IdPatient = 2, FirstName = "Kamil", LastName = "Nowak", BirthDate = DateTime.Now }
+            new Patient { IdPatient = 1, FirstName = "Jan", LastName = "Kowalski", BirthDate = new DateTime(1990,1,1) },
+            new Patient { IdPatient = 2, FirstName = "Kamil", LastName = "Nowak", BirthDate = new DateTime(2004,2,6) }
         });
 
         modelBuilder.Entity<Medicament>().HasData(new List<Medicament>
         {
-            new Medicament { IdMedicament = 1, Name = "AAA", Description = "Some desc...", Type = "AAA" }
+            new Medicament { IdMedicament = 1, Name = "AAA", Description = "Some desc...", Type = "AAA" },
+            new Medicament { IdMedicament = 2, Name = "BBB", Description = "Some desc...", Type = "BBB" }
         });
     }
 

@@ -100,6 +100,13 @@ namespace apbd11.Migrations
                             Description = "Some desc...",
                             Name = "AAA",
                             Type = "AAA"
+                        },
+                        new
+                        {
+                            IdMedicament = 2,
+                            Description = "Some desc...",
+                            Name = "BBB",
+                            Type = "BBB"
                         });
                 });
 
@@ -132,14 +139,14 @@ namespace apbd11.Migrations
                         new
                         {
                             IdPatient = 1,
-                            BirthDate = new DateTime(2025, 5, 21, 16, 56, 53, 736, DateTimeKind.Local).AddTicks(945),
+                            BirthDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Jan",
                             LastName = "Kowalski"
                         },
                         new
                         {
                             IdPatient = 2,
-                            BirthDate = new DateTime(2025, 5, 21, 16, 56, 53, 737, DateTimeKind.Local).AddTicks(2787),
+                            BirthDate = new DateTime(2004, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Kamil",
                             LastName = "Nowak"
                         });
@@ -218,17 +225,21 @@ namespace apbd11.Migrations
 
             modelBuilder.Entity("apbd11.Models.PrescriptionMedicament", b =>
                 {
-                    b.HasOne("apbd11.Models.Medicament", null)
+                    b.HasOne("apbd11.Models.Medicament", "Medicament")
                         .WithMany()
                         .HasForeignKey("IdMedicament")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("apbd11.Models.Prescription", null)
+                    b.HasOne("apbd11.Models.Prescription", "Prescription")
                         .WithMany("PrescriptionMedicaments")
                         .HasForeignKey("IdPrescription")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Medicament");
+
+                    b.Navigation("Prescription");
                 });
 
             modelBuilder.Entity("apbd11.Models.Prescription", b =>

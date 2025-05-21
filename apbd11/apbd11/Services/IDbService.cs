@@ -1,9 +1,10 @@
-﻿using apbd11.Models;
+﻿using apbd11.DTOs;
+using apbd11.Models;
 
 namespace apbd11.Services;
 
 public interface IDbService
 {
-    Task<Prescription> GetPrescription(int id);
-    Task AddNewPrescription(Prescription prescription);
+    Task<PatientRequestDto> GetPrescription(int id);
+    Task AddNewPrescription(PrescriptionRequestDto prescription);
 }
